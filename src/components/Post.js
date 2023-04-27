@@ -20,15 +20,16 @@ const Post = ({ article }) => {
         "Content-Type": "application/json",
       },
     };
-
-    const res = await axios.post(
-      base_url + `article/${article._id}/comment`,
-      data,
-      options
-    );
-    if (res.status === 200) {
-      dispatch(getArticles());
-      setNewComment("");
+    if (newComment.length > 0) {
+      const res = await axios.post(
+        base_url + `article/${article._id}/comment`,
+        data,
+        options
+      );
+      if (res.status === 200) {
+        dispatch(getArticles());
+        setNewComment("");
+      }
     }
   };
 
