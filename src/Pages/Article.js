@@ -4,6 +4,7 @@ import Post from "../components/Post";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArticles } from "./redux/articles/action";
+import Footer from "../components/Footer";
 
 const Article = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Article = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </Container>
   );
 };
