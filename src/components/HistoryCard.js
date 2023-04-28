@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 
 const HistoryCard = ({ item }) => {
   const [status, setStatus] = useState();
@@ -16,7 +17,9 @@ const HistoryCard = ({ item }) => {
   }, [item.result]);
   return (
     <div className="bg-white md:w-[30rem] w-screen p-2 md:p-8 rounded-xl">
-      <h1 className="text-base font-serif  text-cyan-800">2nd of May</h1>
+      <h1 className="text-base font-serif  text-cyan-800">
+        {moment(item.createdAt).format("MMM Do YYYY")}
+      </h1>
       <h1 className="mt-2 font-mono text-base text-gray-600">
         Age : <span className="text-cyan-600">{item.age} months</span>
       </h1>
