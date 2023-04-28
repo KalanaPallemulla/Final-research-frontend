@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Model = ({ onClose }) => {
+const Model = ({ onClose, result }) => {
+  console.log(result);
+  const [status, setStatus] = useState();
+  useEffect(() => {
+    if ((result * 100 >= 0 && result * 100 < 15) || result * 100 < 0) {
+      setStatus(0);
+    } else if (result * 100 >= 15 && result * 100 < 40) {
+      setStatus(1);
+    } else if (result * 100 >= 40 && result * 100 < 65) {
+      setStatus(2);
+    } else if (result * 100 >= 65) {
+      setStatus(3);
+    }
+  }, [result]);
   const handleBackgroundClick = (event) => {
-    // Check if the click occurred on the background div
     if (event.target.classList.contains("bg-black")) {
-      // Call the onClose function passed as a prop to close the Model
       onClose();
     }
   };
@@ -20,16 +31,24 @@ const Model = ({ onClose }) => {
         </div>
         <div>
           <h1 className="text-orange-600 text-xl font-bold font-serif mt-4">
-            Your have no risk of rickets
+            {status === 0
+              ? "Your have no risk of rickets"
+              : status === 1
+              ? "Your have low risk of rickets"
+              : status === 2
+              ? "Your have midrange risk of rickets"
+              : status === 3 && "Your have high risk of rickets"}
           </h1>
         </div>
-        <div>
-          <Link to={`/treatments/1`}>
-            <h1 className="text-gray-400 text-xs  font-serif mt-2">
-              Medical suggestions and treatments
-            </h1>
-          </Link>
-        </div>
+        {status !== 0 && (
+          <div>
+            <Link to={`/treatments/${status}`}>
+              <h1 className="text-gray-400 text-xs  font-serif mt-2">
+                Medical suggestions and treatments
+              </h1>
+            </Link>
+          </div>
+        )}
         <div>
           <h1
             onClick={onClose}

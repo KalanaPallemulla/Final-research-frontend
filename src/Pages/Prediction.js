@@ -15,11 +15,81 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import Model from "../components/Model";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { base_url } from "../environment";
 const Prediction = () => {
   const [open, setOpen] = useState(false);
+  const [age, setAge] = useState();
+  const [height, setHeight] = useState();
+  const [serumCalciumLevel, setSerumCalciumLevel] = useState();
+  const [result, setResult] = useState("");
+  const [infantGastrationalAge, setInfantGastrationalAge] = useState();
+  const [inadequateSunlightExposure, setInadequateSunlightExposure] =
+    useState("");
+  const [boneFractures, setBoneFractures] = useState("");
+  const [bowLegs, setBowLegs] = useState("");
 
   const handleOpen = () => setOpen(!open);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      !age ||
+      !height ||
+      !serumCalciumLevel ||
+      !infantGastrationalAge.length > 0 ||
+      !inadequateSunlightExposure.length > 0 ||
+      !boneFractures.length > 0 ||
+      !bowLegs.length > 0
+    ) {
+      toast.error("All fields are required", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
 
+    const data = {
+      infantGastrationalAge: infantGastrationalAge == 0 ? false : true,
+      bowLegs: bowLegs == 0 ? false : true,
+      inadequateSunlightExposure:
+        inadequateSunlightExposure == 0 ? false : true,
+      boneFractures: boneFractures == 0 ? false : true,
+      serumCalciumLevel: parseFloat(serumCalciumLevel),
+    };
+    const res = await axios.post("http://localhost:5000/predict-rickets", data);
+    const mongoData = {
+      result: result * 100,
+      age,
+      hight: height,
+      infantGastrationalAge: infantGastrationalAge == 0 ? false : true,
+      bowLegs: bowLegs == 0 ? false : true,
+      inadequateSunlightExposure:
+        inadequateSunlightExposure == 0 ? false : true,
+      boneFractures: boneFractures == 0 ? false : true,
+      serumCalciumLevel: parseFloat(serumCalciumLevel),
+    };
+    const options = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"), // Replace authToken with your actual token
+        "Content-Type": "application/json",
+      },
+    };
+    const mongoRes = await axios.post(
+      base_url + "prediction/addPrediction",
+      mongoData,
+      options
+    );
+    console.log(mongoRes);
+    setResult(res.data);
+    setOpen(!open);
+  };
   return (
     // <Fragment>
     <Container>
@@ -44,6 +114,9 @@ const Prediction = () => {
                 <input
                   className="px-4 py-2 border rounded-lg mt-1 placeholder:text-xs text-xs"
                   placeholder="12 Months"
+                  type="number"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
                 />
               </div>
               <div className="flex flex-col px-4 mt-4 md:mt-0">
@@ -52,7 +125,10 @@ const Prediction = () => {
                 </label>
                 <input
                   className="px-4 py-2 border rounded-lg mt-1 placeholder:text-xs text-xs"
-                  placeholder="12 Months"
+                  placeholder="36"
+                  type="number"
+                  value={height}
+                  onChange={(e) => setHeight(e.target.value)}
                 />
               </div>
             </div>
@@ -63,7 +139,10 @@ const Prediction = () => {
                 </label>
                 <input
                   className="px-4 py-2 border rounded-lg mt-1 placeholder:text-xs text-xs"
-                  placeholder="12 Months"
+                  placeholder="8.6"
+                  type="number"
+                  value={serumCalciumLevel}
+                  onChange={(e) => setSerumCalciumLevel(e.target.value)}
                 />
               </div>
             </div>
@@ -76,22 +155,30 @@ const Prediction = () => {
                   Infant's Gastrational Age
                 </label>
                 <div class="flex items-center mt-1">
-                  <select class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700">
-                    <option className="" value="0">
+                  <select
+                    class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700"
+                    value={infantGastrationalAge}
+                    onChange={(e) => setInfantGastrationalAge(e.target.value)}
+                  >
+                    <option className="" value="">
                       Select age
                     </option>
-                    <option value="3">Yes</option>
-                    <option value="6">No</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                   </select>
                 </div>
               </div>
               <div class="flex flex-col px-4 mt-4 md:mt-4">
                 <label class="text-sm text-gray-500 ml-2">Bow Legs</label>
                 <div class="flex items-center mt-1">
-                  <select class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700">
-                    <option value="0">Select age</option>
-                    <option value="3">Yes</option>
-                    <option value="6">No</option>
+                  <select
+                    class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700"
+                    value={bowLegs}
+                    onChange={(e) => setBowLegs(e.target.value)}
+                  >
+                    <option value="">Select age</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                   </select>
                 </div>
               </div>
@@ -102,10 +189,16 @@ const Prediction = () => {
                   Inadequate sunlight exposure
                 </label>
                 <div class="flex items-center mt-1">
-                  <select class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700">
-                    <option value="0">Select age</option>
-                    <option value="3">Yes</option>
-                    <option value="6">No</option>
+                  <select
+                    class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700"
+                    value={inadequateSunlightExposure}
+                    onChange={(e) =>
+                      setInadequateSunlightExposure(e.target.value)
+                    }
+                  >
+                    <option value="">Select age</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                   </select>
                 </div>
               </div>
@@ -114,17 +207,21 @@ const Prediction = () => {
                   Bone fractures{" "}
                 </label>
                 <div class="flex items-center mt-1">
-                  <select class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700">
-                    <option value="0">Select age</option>
-                    <option value="3">Yes</option>
-                    <option value="6">No</option>
+                  <select
+                    class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700"
+                    value={boneFractures}
+                    onChange={(e) => setBoneFractures(e.target.value)}
+                  >
+                    <option value="">Select age</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
                   </select>
                 </div>
               </div>
             </div>
             <div className="flex justify-center mt-8 ">
               <button
-                onClick={handleOpen}
+                onClick={handleSubmit}
                 className="w-fit border px-6 py-2 border-cyan-700 hover:bg-cyan-700 hover:text-white text-cyan-900 rounded-xl"
               >
                 Predict
@@ -133,7 +230,7 @@ const Prediction = () => {
           </div>
         </div>
       </div>
-      {open && <Model onClose={handleOpen} />}
+      {open && <Model onClose={handleOpen} result={result} />}
 
       <div className="mt-[50rem] md:mt-0">
         <Footer />
