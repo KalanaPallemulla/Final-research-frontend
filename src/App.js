@@ -9,6 +9,7 @@ import Prediction from "./Pages/Prediction";
 import Article from "./Pages/Article";
 import History from "./Pages/History";
 import Treatments from "./Pages/Treatments";
+import AdminHome from "./admin/Pages/AdminHome";
 
 const ProtectedRoute = () => {
   const isAuthenticated = localStorage.getItem("token");
@@ -37,6 +38,7 @@ function App() {
         </Route>
         <Route path="/article" element={<Article />} />
         <Route path="/" element={<Home />} />
+        <Route path="/admin-home" element={<AdminHome />} />
       </Routes>
       {/* <Navigate to="/home" /> */}
     </div>
