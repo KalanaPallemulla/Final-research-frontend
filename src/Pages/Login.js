@@ -5,10 +5,11 @@ import Container from "../components/Container";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { base_url } from "../environment";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -49,7 +50,7 @@ const Login = () => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.user._id);
 
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       console.log("Login error: ", error);
@@ -112,9 +113,9 @@ const Login = () => {
                   Submit
                 </button>
               </div>
-              <h1 className="mt-2 text-xs text-gray-400">
+              <Link to="/register" className="pt-2 text-xs text-gray-400">
                 Don't have an account?
-              </h1>
+              </Link>
             </form>
           </div>
         </div>

@@ -1,9 +1,27 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Container from "../components/Container";
 import bones from "../assets/bone.jpeg";
 import Footer from "../components/Footer";
+import {
+  Button,
+  Dialog,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Typography,
+  Input,
+  Checkbox,
+} from "@material-tailwind/react";
+import { useState } from "react";
+import Model from "../components/Model";
 const Prediction = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(!open);
+
   return (
+    // <Fragment>
     <Container>
       <h1 className="bg-white text-center pt-10 text-4xl font-serif text-cyan-800">
         Predict
@@ -105,17 +123,23 @@ const Prediction = () => {
               </div>
             </div>
             <div className="flex justify-center mt-8 ">
-              <button className="w-fit border px-6 py-2 border-cyan-700 hover:bg-cyan-700 hover:text-white text-cyan-900 rounded-xl">
+              <button
+                onClick={handleOpen}
+                className="w-fit border px-6 py-2 border-cyan-700 hover:bg-cyan-700 hover:text-white text-cyan-900 rounded-xl"
+              >
                 Predict
               </button>
             </div>
           </div>
         </div>
       </div>
+      {open && <Model onClose={handleOpen} />}
+
       <div className="mt-[50rem] md:mt-0">
         <Footer />
       </div>
     </Container>
+    // </Fragment>
   );
 };
 

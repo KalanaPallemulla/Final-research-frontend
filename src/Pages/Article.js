@@ -15,7 +15,8 @@ const Article = () => {
   return (
     <Container>
       <div className=" w-screen pt-4 ">
-        <div className="flex flex-col items-center md:px-8 space-y-4">
+        <h1 className="text-center font-serif text-3xl text-white">Articles</h1>
+        <div className="flex flex-col items-center md:px-8 space-y-4 mt-8">
           {articles.map((article, index) => (
             <Post article={article} key={index} />
           ))}

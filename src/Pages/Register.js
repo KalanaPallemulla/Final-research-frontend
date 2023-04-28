@@ -6,11 +6,11 @@ import { useDispatch } from "react-redux";
 import { increment } from "../appRedux/slice";
 import axios from "axios";
 import { base_url } from "../environment";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
 
@@ -72,7 +72,7 @@ const Register = () => {
         // localStorage.setItem("token", res.data.token);
         // localStorage.setItem("userId", res.data.user._id);
 
-        navigate("/");
+        navigate("/login");
       }
     } catch (error) {
       console.log("Login error: ", error);
@@ -170,7 +170,9 @@ const Register = () => {
                   Submit
                 </button>
               </div>
-              <h1 className="mt-2 text-xs text-gray-400">Have an account?</h1>
+              <Link to="/login" className="mt-2 text-xs text-gray-400">
+                Have an account?
+              </Link>
             </form>
           </div>
         </div>

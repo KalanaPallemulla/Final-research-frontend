@@ -42,20 +42,22 @@ const Post = ({ article }) => {
       {article.comments.map((comment, index) => (
         <Comment comment={comment} articleId={article._id} />
       ))}
-      <div className="w-full flex flex-col items-center mt-2 ">
-        <input
-          className="border w-72 py-2 px-4 rounded-full"
-          placeholder="Add your comment"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-        />
-        <button
-          onClick={handleSubmit}
-          className="mt-1 font-serif text-base text-cyan-700"
-        >
-          Submit
-        </button>
-      </div>
+      {localStorage.getItem("token") && (
+        <div className="w-full flex flex-col items-center mt-2 ">
+          <input
+            className="border w-72 py-2 px-4 rounded-full"
+            placeholder="Add your comment"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+          <button
+            onClick={handleSubmit}
+            className="mt-1 font-serif text-base text-cyan-700"
+          >
+            Submit
+          </button>
+        </div>
+      )}
     </div>
   );
 };

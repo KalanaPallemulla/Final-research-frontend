@@ -12,9 +12,9 @@ const Navbar = () => {
       <div className="flex md:justify-end justify-center space-x-8 text-white MF mt-2 md:mt-0">
         <Link
           className={`hover:text-red-500 ${
-            params.pathname === "/home" && "text-red-500"
+            params.pathname === "/" && "text-red-500"
           }`}
-          to="/home"
+          to="/"
         >
           Home
         </Link>
@@ -30,7 +30,7 @@ const Navbar = () => {
           className={`hover:text-red-500 ${
             params.pathname === "/history" && "text-red-500"
           }`}
-          to="/"
+          to="/history"
         >
           History
         </Link>
@@ -42,18 +42,31 @@ const Navbar = () => {
         >
           Articles
         </Link>
-        <Link
-          onClick={() => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("userId");
-          }}
-          className={`hover:text-red-500 ${
-            params.pathname === "/" && "text-red-500"
-          }`}
-          to="/"
-        >
-          Logout
-        </Link>
+        {localStorage.getItem("token") ? (
+          <Link
+            onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("userId");
+            }}
+            className={`hover:text-red-500 ${
+              params.pathname === "/login" && "text-red-500"
+            }`}
+            to="/login"
+          >
+            Logout
+          </Link>
+        ) : (
+          <Link
+            className={`hover:text-red-500 ${
+              (params.pathname === "/login" ||
+                params.pathname === "/register") &&
+              "text-red-500"
+            }`}
+            to="/"
+          >
+            Join
+          </Link>
+        )}
       </div>
     </div>
   );

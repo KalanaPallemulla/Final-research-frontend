@@ -7,17 +7,18 @@ import Register from "./Pages/Register";
 import Home from "./Pages/Home";
 import Prediction from "./Pages/Prediction";
 import Article from "./Pages/Article";
+import History from "./Pages/History";
+import Treatments from "./Pages/Treatments";
 
 const ProtectedRoute = () => {
   const isAuthenticated = localStorage.getItem("token");
-  console.log(isAuthenticated);
-  return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };
 
 const CheckLoginRoute = () => {
   const isAuthenticated = localStorage.getItem("token");
   console.log(isAuthenticated);
-  return !isAuthenticated ? <Outlet /> : <Navigate to="/home" />;
+  return !isAuthenticated ? <Outlet /> : <Navigate to="/" />;
 };
 
 function App() {
@@ -26,14 +27,16 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route element={<CheckLoginRoute />}>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
         <Route element={<ProtectedRoute />}>
-          <Route path="/home" element={<Home />} />
           <Route path="/prediction" element={<Prediction />} />
-          <Route path="/article" element={<Article />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/treatments/:id" element={<Treatments />} />
         </Route>
+        <Route path="/article" element={<Article />} />
+        <Route path="/" element={<Home />} />
       </Routes>
       {/* <Navigate to="/home" /> */}
     </div>
