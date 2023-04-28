@@ -14,10 +14,6 @@ const History = () => {
 
         <div className="flex flex-col items-center md:px-8 space-y-4 mt-8">
           <HistoryCard />
-          <HistoryCard />
-          <HistoryCard />
-          <HistoryCard />
-          <HistoryCard />
         </div>
       </div>
       <Footer />
