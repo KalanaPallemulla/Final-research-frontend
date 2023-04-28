@@ -176,7 +176,7 @@ const Prediction = () => {
                     value={bowLegs}
                     onChange={(e) => setBowLegs(e.target.value)}
                   >
-                    <option value="">Select age</option>
+                    <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                   </select>
@@ -196,7 +196,7 @@ const Prediction = () => {
                       setInadequateSunlightExposure(e.target.value)
                     }
                   >
-                    <option value="">Select age</option>
+                    <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                   </select>
@@ -212,7 +212,7 @@ const Prediction = () => {
                     value={boneFractures}
                     onChange={(e) => setBoneFractures(e.target.value)}
                   >
-                    <option value="">Select age</option>
+                    <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                   </select>
