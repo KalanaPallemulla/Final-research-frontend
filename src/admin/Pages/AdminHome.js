@@ -6,7 +6,7 @@ import moment from "moment";
 import { toast } from "react-toastify";
 
 const AdminHome = () => {
-  const [tab, setTab] = useState(2);
+  const [tab, setTab] = useState(0);
   const [users, setUsers] = useState([]);
   const [articles, setArticles] = useState([]);
   const [topic, setTopic] = useState("");
