@@ -64,7 +64,7 @@ const Prediction = () => {
       serumCalciumLevel: parseFloat(serumCalciumLevel),
     };
     const res = await axios.post(
-      "http://kingslayer47.pythonanywhere.com/predict-rickets",
+      "https://kingslayer47.pythonanywhere.com/predict-rickets",
       data
     );
     const mongoData = {
