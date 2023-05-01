@@ -3,7 +3,7 @@ import moment from "moment";
 
 const HistoryCard = ({ item }) => {
   const [status, setStatus] = useState();
-
+  console.log("item", item);
   useEffect(() => {
     if ((item.result >= 0 && item.result < 15) || item.result < 0) {
       setStatus(0);

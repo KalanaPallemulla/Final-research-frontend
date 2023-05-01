@@ -63,9 +63,12 @@ const Prediction = () => {
       boneFractures: boneFractures == 0 ? false : true,
       serumCalciumLevel: parseFloat(serumCalciumLevel),
     };
-    const res = await axios.post("http://localhost:5000/predict-rickets", data);
+    const res = await axios.post(
+      "http://kingslayer47.pythonanywhere.com/predict-rickets",
+      data
+    );
     const mongoData = {
-      result: result * 100,
+      result: res.data * 100,
       age,
       hight: height,
       infantGastrationalAge: infantGastrationalAge == 0 ? false : true,
