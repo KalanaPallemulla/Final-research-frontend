@@ -159,6 +159,7 @@ const Prediction = () => {
                 </label>
                 <div class="flex items-center mt-1">
                   <select
+                    name="infantGastrationalAge"
                     class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700"
                     value={infantGastrationalAge}
                     onChange={(e) => setInfantGastrationalAge(e.target.value)}
@@ -175,6 +176,7 @@ const Prediction = () => {
                 <label class="text-sm text-gray-500 ml-2">Bow Legs</label>
                 <div class="flex items-center mt-1">
                   <select
+                    name="bowLegs"
                     class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700"
                     value={bowLegs}
                     onChange={(e) => setBowLegs(e.target.value)}
@@ -193,6 +195,7 @@ const Prediction = () => {
                 </label>
                 <div class="flex items-center mt-1">
                   <select
+                    name="inadequateSunlightExposure"
                     class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700"
                     value={inadequateSunlightExposure}
                     onChange={(e) =>
@@ -211,6 +214,7 @@ const Prediction = () => {
                 </label>
                 <div class="flex items-center mt-1">
                   <select
+                    name="boneFractures"
                     class="border border-gray-300 rounded-md px-4 py-2 w-full AF text-xs text-white bg-cyan-700"
                     value={boneFractures}
                     onChange={(e) => setBoneFractures(e.target.value)}
