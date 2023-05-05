@@ -62,7 +62,7 @@ const Navbar = () => {
                 params.pathname === "/register") &&
               "text-red-500"
             }`}
-            to="/"
+            to="/login"
           >
             Join
           </Link>
