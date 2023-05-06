@@ -29,10 +29,12 @@ const Prediction = () => {
     useState("");
   const [boneFractures, setBoneFractures] = useState("");
   const [bowLegs, setBowLegs] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleOpen = () => setOpen(!open);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (
       !age ||
       !height ||
@@ -52,6 +54,8 @@ const Prediction = () => {
         progress: undefined,
         theme: "light",
       });
+      setLoading(false);
+
       return;
     }
 
@@ -92,6 +96,7 @@ const Prediction = () => {
     console.log(mongoRes);
     setResult(res.data);
     setOpen(!open);
+    setLoading(false);
   };
   return (
     // <Fragment>
@@ -228,10 +233,11 @@ const Prediction = () => {
             </div>
             <div className="flex justify-center mt-8 ">
               <button
+                disabled={!loading}
                 onClick={handleSubmit}
                 className="w-fit border px-6 py-2 border-cyan-700 hover:bg-cyan-700 hover:text-white text-cyan-900 rounded-xl"
               >
-                Predict
+                {!loading ? "Predict" : "Predicting..."}
               </button>
             </div>
           </div>
