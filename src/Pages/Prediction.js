@@ -233,7 +233,6 @@ const Prediction = () => {
             </div>
             <div className="flex justify-center mt-8 ">
               <button
-                disabled={!loading}
                 onClick={handleSubmit}
                 className="w-fit border px-6 py-2 border-cyan-700 hover:bg-cyan-700 hover:text-white text-cyan-900 rounded-xl"
               >
