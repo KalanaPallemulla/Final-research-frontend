@@ -155,7 +155,7 @@ const Prediction = () => {
             <div className="w-full md:grid md:grid-cols-2 ">
               <div class="flex flex-col px-4 mt-4 md:mt-4">
                 <label class="text-sm text-gray-500 ml-2">
-                  Infant's Gastrational Age
+                  Normal Infant's Gastrational Age
                 </label>
                 <div class="flex items-center mt-1">
                   <select
